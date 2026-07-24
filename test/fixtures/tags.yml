@@ -1,0 +1,12 @@
+salary:
+  name: salary
+car:
+  name: car
+gas:
+  name: gas
+  parent: car
+food:
+  name: food
+macdonalds:
+  name: Вкусно и точка
+  parent: food
