@@ -1,4 +1,6 @@
 class Record < ApplicationRecord
-  validates :name, presence: true
   validates :value, presence: true
+  validates :tag, presence: true
+
+  belongs_to :tag
 end

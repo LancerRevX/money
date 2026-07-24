@@ -12,10 +12,13 @@
 
 ActiveRecord::Schema[8.1].define(version: 2026_07_21_162255) do
   create_table "records", force: :cascade do |t|
+    t.text "comment"
     t.datetime "created_at", null: false
-    t.string "name"
+    t.date "date"
+    t.integer "tag_id"
     t.datetime "updated_at", null: false
     t.decimal "value", precision: 11, scale: 2
+    t.index ["tag_id"], name: "index_records_on_tag_id"
   end
 
   create_table "tags", force: :cascade do |t|

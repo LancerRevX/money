@@ -11,8 +11,10 @@ class CreateRecords < ActiveRecord::Migration[8.1]
     create_table :records do |t|
       t.timestamps
 
-      t.string :name
+      t.date :date
+      t.belongs_to :tag
       t.decimal :value, precision: 11, scale: 2
+      t.text :comment
     end
 
   end
