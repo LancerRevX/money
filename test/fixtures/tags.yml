@@ -10,3 +10,13 @@ food:
 macdonalds:
   name: Вкусно и точка
   parent: food
+self:
+  name: self
+watches:
+  name: Watches
+  parent: self
+marketplaces:
+  name: marketplaces
+ozon:
+  name: Озон
+  parent: marketplaces

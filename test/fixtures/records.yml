@@ -1,4 +1,18 @@
 salary:
   date: 2026-07-01
-  tag: salary
+  tags: salary
   value: 42_000
+food:
+  date: 2026-07-01
+  tags: food
+  value: -968
+gas:
+  date: 2026-07-01
+  tags: gas
+  value: -2000
+casio_watch:
+  date: 2026-07-02
+  tags: 
+    - watches
+    - ozon
+  value: -3856

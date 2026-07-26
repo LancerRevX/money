@@ -1,0 +1,6 @@
+formatter:
+  enabled: true
+  maxLineLength: 120
+  rewriter:
+    pre:
+      - tailwind-class-sorter
