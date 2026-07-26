@@ -1,24 +1,33 @@
-<h1 class="text-lg"><%= t ".title" %></h1>
-<%= link_to t(".new_button"), new_record_path %>
+<main class="container mx-auto mt-28 px-5" data-controller="records">
+  <h1 class="text-lg"><%= t ".title" %></h1>
+  <%= link_to t(".new_button"), new_record_path %>
 
-<% cache @records do %>
-  <section class="">
-    <% @records.group_by(&:date).each do |date, records| %>
-      <h2 class="mb-2 text-gray-600"><%= date.strftime("%a, %d %b %Y") %>:</h2>
+  <% cache @records do %>
+    <section class="">
+      <% @records.group_by(&:date).each do |date, records| %>
+        <h2 class="mb-2 text-gray-600"><%= date.strftime("%a, %d %b %Y") %>:</h2>
 
-      <div class="mb-2">
-        <% records.each do |record| %>
-          <article class="flex not-last:mb-2 not-last:border-b-2 not-last:pb-2">
-            <div class="flex-1">
-              <%= record.tags.map {|tag| tag.name.capitalize}.join(', ') %>:
-              <span class="font-semibold <%= class_names "text-green-600": record.value.positive?, "text-red-600": record.value.negative? %>"><%= number_to_currency record.value, format: "+%u%n", negative_format: "-%u%n", strip_insignificant_zeros: true %></span>
-            </div>
+        <div class="mb-2">
+          <% records.each do |record| %>
+            <%= turbo_frame_tag @record do %>
+              <article class="flex not-last:mb-2 not-last:border-b-2 not-last:pb-2">
+                <div class="flex-1">
+                  <%= record.tags.map {|tag| tag.name.capitalize}.join(', ') %>:
+                  <span class="font-semibold <%= class_names "text-green-600": record.value.positive?, "text-red-600": record.value.negative? %>"><%= number_to_currency record.value, format: "+%u%n", negative_format: "-%u%n", strip_insignificant_zeros: true %></span>
+                </div>
 
-            <%= link_to t(".edit_button"), edit_record_path(record), class: "border-2 rounded" %>
-            <%= button_to t(".destroy_button"), record, method: :delete, class: "border-2 rounded", data: { turbo_confirm: t(".destroy_confirm") } %>
-          </article>
-        <% end %>
-      </div>
-    <% end %>
-  </section>
-<% end %>
+                <%# = link_to t(".edit_button"), edit_record_path(record), class: "border-2 rounded" %>
+                <%= link_to t(".edit_button"), edit_record_path(record), "data-turbo-frame": "record-dialog" %>
+                <%= button_to t(".destroy_button"), record, method: :delete, class: "border-2 rounded", data: { turbo_confirm: t(".destroy_confirm") } %>
+              </article>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
+    </section>
+  <% end %>
+
+  <dialog class="h-96 w-96 bg-red-600" data-controller="record-dialog" data-record-dialog-target="dialog">
+    <%= turbo_frame_tag "record-dialog", "data-record-dialog-target": "turboFrame" %>
+  </dialog>
+</main>

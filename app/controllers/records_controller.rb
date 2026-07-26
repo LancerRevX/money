@@ -26,9 +26,9 @@ class RecordsController < ApplicationController
 
   def update
     if @record.update(record_params)
-      redirect_to records_path
+      render :show
     else
-      render :edit, status: unprocessable_entity
+      render :edit, status: :unprocessable_entity
     end
   end
 

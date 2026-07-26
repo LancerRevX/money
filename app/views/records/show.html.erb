@@ -1,1 +1,4 @@
-<%= @record %>
+<%= turbo_frame_tag @record do %>
+  <h2>updated record:</h2>
+  <%= @record %>
+<% end %>
